@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SEGEL - Sistema de Segurança</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- CABEÇALHO -->
+    <header>
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                S
+            </div>
+
+            <div>
+                <h1>SEGEL</h1>
+                <p>Sistema de Segurança de Galerias Elétricas</p>
+            </div>
+
+        </div>
+
+        <div class="connection">
+
+            <span id="connectionDot"></span>
+
+            <span id="connectionText">
+                Conectando ao sistema...
+            </span>
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main>
+
+        <!-- STATUS DO SISTEMA -->
+        <section class="status-card" id="statusCard">
+
+            <div class="status-icon" id="statusIcon">
+                ✓
+            </div>
+
+            <div class="status-info">
+
+                <span class="status-label">
+                    STATUS DO SISTEMA
+                </span>
+
+                <h2 id="statusText">
+                    SISTEMA NORMAL
+                </h2>
+
+                <p id="statusDescription">
+                    Nenhum risco de alagamento detectado.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- CARDS -->
+        <section class="cards">
+
+            <!-- NÍVEL DA ÁGUA -->
+            <div class="card">
+
+                <div class="card-title">
+
+                    <span class="icon">💧</span>
+
+                    <span>
+                        Nível da água
+                    </span>
+
+                </div>
+
+                <div class="value">
+
+                    <span id="distance">
+                        --
+                    </span>
+
+                    <small>
+                        cm
+                    </small>
+
+                </div>
+
+                <div class="progress">
+
+                    <div id="waterProgress"></div>
+
+                </div>
+
+                <p class="card-description">
+                    Distância medida pelo sensor ultrassônico
+                </p>
+
+            </div>
+
+
+            <!-- BOMBA -->
+            <div class="card">
+
+                <div class="card-title">
+
+                    <span class="icon">⚙️</span>
+
+                    <span>
+                        Bomba
+                    </span>
+
+                </div>
+
+                <div
+                    class="equipment-status off"
+                    id="pumpStatus">
+
+                    DESLIGADA
+
+                </div>
+
+                <p class="card-description">
+                    Sistema de drenagem
+                </p>
+
+            </div>
+
+
+            <!-- ALARME -->
+            <div class="card">
+
+                <div class="card-title">
+
+                    <span class="icon">🔊</span>
+
+                    <span>
+                        Alarme
+                    </span>
+
+                </div>
+
+                <div
+                    class="equipment-status off"
+                    id="alarmStatus">
+
+                    DESLIGADO
+
+                </div>
+
+                <p class="card-description">
+                    Alerta sonoro
+                </p>
+
+            </div>
+
+
+            <!-- SENSOR -->
+            <div class="card">
+
+                <div class="card-title">
+
+                    <span class="icon">📡</span>
+
+                    <span>
+                        Sensor
+                    </span>
+
+                </div>
+
+                <div
+                    class="equipment-status off"
+                    id="sensorStatus">
+
+                    AGUARDANDO
+
+                </div>
+
+                <p class="card-description">
+                    HC-SR04
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- LIMITES DE SEGURANÇA -->
+        <section class="limits">
+
+            <h3>
+                Limites de segurança
+            </h3>
+
+            <div class="limit-container">
+
+
+                <div class="limit normal">
+
+                    <span class="limit-dot"></span>
+
+                    <div>
+
+                        <strong>
+                            Nível normal
+                        </strong>
+
+                        <p>
+                            Acima de 30 cm
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="limit attention">
+
+                    <span class="limit-dot"></span>
+
+                    <div>
+
+                        <strong>
+                            Monitoramento
+                        </strong>
+
+                        <p>
+                            Entre 10 e 30 cm
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="limit critical">
+
+                    <span class="limit-dot"></span>
+
+                    <div>
+
+                        <strong>
+                            Nível crítico
+                        </strong>
+
+                        <p>
+                            Abaixo de 10 cm
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- BOTÃO DE EMERGÊNCIA -->
+        <section class="emergency-section">
+
+            <button
+                id="emergencyButton"
+                onclick="emergencyStop()">
+
+                🚨
+
+                <span>
+                    DESLIGAR EMERGÊNCIA
+                </span>
+
+            </button>
+
+            <p>
+                Aciona o desligamento da bomba e do alarme.
+            </p>
+
+        </section>
+
+
+        <!-- HISTÓRICO -->
+        <section class="history">
+
+            <div class="history-header">
+
+                <h3>
+                    Histórico do sistema
+                </h3>
+
+                <button onclick="clearHistory()">
+                    Limpar histórico
+                </button>
+
+            </div>
+
+
+            <div id="historyList">
+
+                <div class="history-item">
+
+                    <span class="history-time">
+                        --:--
+                    </span>
+
+                    <span>
+                        Aguardando dados do ESP8266
+                    </span>
+
+                    <span class="history-normal">
+                        AGUARDANDO
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+    <footer>
+
+        <p>
+            SEGEL © 2026 | Sistema de monitoramento de galerias elétricas
+        </p>
+
+        <p id="lastUpdate">
+            Última atualização: --
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
